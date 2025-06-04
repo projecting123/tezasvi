@@ -1,0 +1,125 @@
+'use client'
+import Image from 'next/image'
+import React from 'react'
+import { Flex, Text } from '@radix-ui/themes'
+import { IndianRupeeIcon } from 'lucide-react'
+import { Button } from '../ui/button'
+import { gsap } from 'gsap'
+import { useGSAP } from "@gsap/react"
+import { useRouter } from 'next/navigation'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
+const PRODUCTS = [{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+{
+  rawName: "black-tshirt",
+  displayName: 'Black T-Shirt',
+  imgSrc: '/black-tshirt.jpg',
+},
+{
+  rawName: "white-tshirt",
+  displayName: 'White T-Shirt',
+  imgSrc: '/white-tshirt.jpg',
+},
+]
+
+export default function Products() {
+  const router = useRouter()
+  useGSAP(() => {
+    gsap.from(".product", { duration: 0.5, autoAlpha: 0, y: 50, ease: "circ", stagger: 0.1 })
+  })
+
+  const orderProduct = (rawName: string, pid: number) => {
+    router.push(`/product/${rawName}?pid=${pid}`)
+  }
+
+  return (
+    <Flex direction={'column'} gap={'4'}>
+      <Flex justify={'center'} gap={'9'}>
+        <Select>
+          <SelectTrigger className='self-center'>
+            <SelectValue placeholder="Sort by" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Price: Low to High</SelectItem>
+            <SelectItem value="2">Price: High to Low</SelectItem>
+            <SelectItem value="3">Newest</SelectItem>
+            <SelectItem value="4">Oldest</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value='man'>Man</SelectItem>
+            <SelectItem value='woman'>Woman</SelectItem>
+            <SelectItem value='kids'>Kids</SelectItem>
+          </SelectContent>
+        </Select>
+      </Flex>
+
+      <Flex gap={'4'} wrap={'wrap'} justify={'center'}>
+        {PRODUCTS.map((product, index) => (
+          <Flex key={index} className='product border shadow-md rounded-md p-2' direction={'column'} justify={'center'}>
+            <Text align={'center'} my={'2'}>{product.displayName}</Text>
+            <Image src={product.imgSrc} alt={product.displayName} width={150} height={350} />
+            <Flex justify={'between'} mt={'2'} flexGrow={'1'}>
+              <Text className='flex items-center'><IndianRupeeIcon size={14} />399</Text>
+              <Button variant={'outline'} className='cursor-pointer' size={'sm'} onClick={() => orderProduct(product.rawName, index + 1)}>Order</Button>
+            </Flex>
+          </Flex>
+        ))}
+      </Flex>
+    </Flex>
+
+  )
+}
