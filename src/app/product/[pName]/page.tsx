@@ -1,7 +1,7 @@
 import { formatString } from "@/utils/format-product-name"
 import { Flex } from "@radix-ui/themes"
 
-export default async function page({ params, searchParams }: { params: Promise<{ pName: string }>, searchParams: Promise<{ pid: string }> }) {
+export default async function page({ params }: { params: Promise<{ pName: string }> }) {
   const { pName } = await params
   const formattedName = formatString(pName);
   return (
