@@ -76,7 +76,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Products() {
   const router = useRouter()
   useGSAP(() => {
-    gsap.from(".product", { duration: 0.5, scrollTrigger: ".product", autoAlpha: 0, y: 50, ease: "circ", stagger: 0.1 })
+    gsap.from(".product", { duration: 0.5, delay: 0.2, scrollTrigger: ".product", autoAlpha: 0, y: 50, ease: "circ", stagger: 0.1 })
   })
 
   const orderProduct = (rawName: string, pid: number) => {
@@ -85,36 +85,11 @@ export default function Products() {
 
   return (
     <Flex direction={'column'} gap={'4'}>
-      <Flex justify={'center'} gap={'9'}>
-        <Select>
-          <SelectTrigger className='self-center'>
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="1">Price: Low to High</SelectItem>
-            <SelectItem value="2">Price: High to Low</SelectItem>
-            <SelectItem value="3">Newest</SelectItem>
-            <SelectItem value="4">Oldest</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='man'>Man</SelectItem>
-            <SelectItem value='woman'>Woman</SelectItem>
-            <SelectItem value='kids'>Kids</SelectItem>
-          </SelectContent>
-        </Select>
-      </Flex>
-
       <Flex gap={'4'} wrap={'wrap'} justify={'center'}>
         {PRODUCTS.map((product, index) => (
           <Flex key={index} className='product border shadow-md rounded-md p-2' direction={'column'} justify={'center'} align={'center'}>
             <Text align={'center'} my={'2'}>{product.displayName}</Text>
-            <Image src={product.imgSrc} alt={product.displayName} className='cursor-pointer' width={150} height={350} onClick={() => orderProduct(product.rawName, index + 1)}/>
+            <Image loading='lazy' src={product.imgSrc} alt={product.displayName} className='cursor-pointer' width={150} height={350} onClick={() => orderProduct(product.rawName, index + 1)}/>
             <Text className='flex items-center' mt={'2'}><IndianRupeeIcon size={14} />399</Text>
           </Flex>
         ))}

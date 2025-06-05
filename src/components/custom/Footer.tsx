@@ -43,7 +43,7 @@ export default function Footer() {
 
           <Flex gap={'2'} direction={'column'}>
             <Heading size={'5'} color='amber'>Keep up to date</Heading>
-            <Input type='text' placeholder='Enter your email'/>
+            <Input type='text' name='email' placeholder='Enter your email' autoComplete='off' aria-label='Email to receive updates from Tezasvi.'/>
           </Flex>
 
         </Flex>

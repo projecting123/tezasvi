@@ -3,10 +3,11 @@
 import { Box, Flex, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import React from 'react'
-import { ShoppingCart, Search, Phone } from 'lucide-react'
+import { ShoppingCart, Search, User2 } from 'lucide-react'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu'
 import Link from 'next/link'
 import ProductSearchMobile from './ProductSearchMobile'
+import CategorySlide from './CategorySlide'
 export default function Header() {
   return (
     <>
@@ -24,9 +25,10 @@ export default function Header() {
         <Flex gap={'6'}>
           <Box display={{initial: 'none', sm: 'inline-block'}}><Search color='white' className='cursor-pointer' onClick={() => { alert('Search') }} /></Box>
           <ShoppingCart color='white' className='cursor-pointer' />
-          <Phone color='white' className='cursor-pointer' />
+          <User2 color='white' className='cursor-pointer' />
         </Flex>
       </header>
+      <CategorySlide/>
       <ProductSearchMobile/>
     </>
 
