@@ -20,7 +20,7 @@ export default function CategorySlide() {
     })
     return (
         <Box display={{ initial: 'block', sm: 'none' }}>
-            <Carousel className="w-full mt-2 px-4 sticky top-0">
+            <Carousel className="w-full my-2 px-4 sticky top-0">
                 <CarouselContent className="-ml-1">
                     {Array.from(CATEGORIES).map((category, index) => (
                         <CarouselItem key={index} className="pl-1 basis-1/5 category">

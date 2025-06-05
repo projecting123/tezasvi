@@ -94,6 +94,5 @@ export default function Products() {
         ))}
       </Flex>
     </Flex>
-
   )
 }

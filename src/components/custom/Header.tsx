@@ -3,11 +3,12 @@
 import { Box, Flex, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import React from 'react'
-import { ShoppingCart, Search, User2 } from 'lucide-react'
+import { ShoppingCart, User2 } from 'lucide-react'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu'
 import Link from 'next/link'
-import ProductSearchMobile from './ProductSearchMobile'
 import CategorySlide from './CategorySlide'
+import { Input } from '../ui/input'
+import { MobileProductSearch } from './MobileProductSearch'
 export default function Header() {
   return (
     <>
@@ -22,14 +23,18 @@ export default function Header() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <Flex gap={'6'}>
-          <Box display={{initial: 'none', sm: 'inline-block'}}><Search color='white' className='cursor-pointer' onClick={() => { alert('Search') }} /></Box>
-          <ShoppingCart color='white' className='cursor-pointer' />
-          <User2 color='white' className='cursor-pointer' />
+        <Flex gap={'5'} align={'center'}>
+          <Box display={{initial: 'inline-block', sm: 'none'}}>
+            <MobileProductSearch/>
+          </Box>
+          <Box display={{initial: 'none', sm: 'inline-block'}}>
+            <Input type='search' name='search' autoComplete='off' placeholder='Search for products...' aria-label='Search for products...' className='w-80 h-8 text-white'/>
+          </Box>
+          <ShoppingCart size={'20'} color='white' className='cursor-pointer' />
+          <User2 size={'20'} color='white' className='cursor-pointer' />
         </Flex>
       </header>
       <CategorySlide/>
-      <ProductSearchMobile/>
     </>
 
   )
