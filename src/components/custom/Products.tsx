@@ -6,7 +6,6 @@ import { IndianRupeeIcon } from 'lucide-react'
 import { gsap } from 'gsap'
 import { useGSAP } from "@gsap/react"
 import { useRouter } from 'next/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 const PRODUCTS = [{
   rawName: "black-tshirt",
   displayName: 'Black T-Shirt',
