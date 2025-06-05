@@ -7,12 +7,12 @@ import { Input } from '../ui/input'
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className='mt-4'>
       <Flex direction={'column'} className='bg-[#410F0F] text-white'>
         <Flex direction={{initial: 'column', sm: 'row'}} gap={'4'} justify={{initial: 'start', sm: 'center'}} p={'5'} >
           <Flex gap={'2'} direction={'column'}>
             <Heading size={'5'} color='amber'>Customer Service</Heading>
-            <Flex direction={{ initial: 'row', sm: 'column'}} gap={'2'}>
+            <Flex direction={{ initial: 'row', sm: 'column'}} gap={'2'} className='text-sm'>
                 <Text>Contact Us</Text>
                 <Box display={{ initial: 'inline-block', sm: 'none'}}><Separator orientation='vertical' className='opacity-70'/></Box>
                 <Text>Track Order</Text>
@@ -23,7 +23,7 @@ export default function Footer() {
 
           <Flex gap={'2'} direction={'column'}>
             <Heading size={'5'} color='amber'>Company</Heading>
-            <Flex direction={{ initial: 'row', sm: 'column'}} gap={'2'}>
+            <Flex direction={{ initial: 'row', sm: 'column'}} gap={'2'} className='text-sm'>
                 <Text>About Us</Text>
                 <Box display={{ initial: 'inline-block', sm: 'none'}}><Separator orientation='vertical' className='opacity-70'/></Box>
                 <Text>Terms & Conditions</Text>
