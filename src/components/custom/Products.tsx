@@ -3,7 +3,6 @@ import Image from 'next/image'
 import React from 'react'
 import { Flex, Text } from '@radix-ui/themes'
 import { IndianRupeeIcon } from 'lucide-react'
-import { Button } from '../ui/button'
 import { gsap } from 'gsap'
 import { useGSAP } from "@gsap/react"
 import { useRouter } from 'next/navigation'
