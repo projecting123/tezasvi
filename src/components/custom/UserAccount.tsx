@@ -38,7 +38,7 @@ export default function UserAccount() {
                         </Flex>
                         <Button className='mt-3 cursor-pointer'>Log in</Button>
                         <Flex justify={'center'} className='text-sm' align={'center'}>
-                            Don't have an account? <CreateAccount />
+                            Don&apos;t have an account? <CreateAccount />
                         </Flex>
                     </form>
                 </DialogContent>
@@ -62,7 +62,7 @@ export function CreateAccount() {
                         <Flex direction={'column'}>
                             <Label htmlFor='email' className='mb-2'>Email</Label>
                             <Input type="email" name="email" id="email" className='w-full h-10' placeholder='Enter your email...' />
-                            <span className='text-sm opacity-50 mt-1'>We don't share your email with anyone</span>
+                            <span className='text-sm opacity-50 mt-1'>We don&apos;t share your email with anyone</span>
                         </Flex>
 
                         <Flex direction={'column'}>
