@@ -3,12 +3,13 @@
 import { Box, Flex, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import React from 'react'
-import { ShoppingCart, User2 } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu'
 import Link from 'next/link'
 import CategorySlide from './CategorySlide'
 import { Input } from '../ui/input'
 import { MobileProductSearch } from './MobileProductSearch'
+import UserAccount from './UserAccount'
 export default function Header() {
   return (
     <>
@@ -31,7 +32,7 @@ export default function Header() {
             <Input type='search' name='search' autoComplete='off' placeholder='Search for products...' aria-label='Search for products...' className='w-80 h-8 text-white'/>
           </Box>
           <ShoppingCart size={'20'} color='white' className='cursor-pointer' />
-          <User2 size={'20'} color='white' className='cursor-pointer' />
+          <UserAccount/>
         </Flex>
       </header>
       <CategorySlide/>
