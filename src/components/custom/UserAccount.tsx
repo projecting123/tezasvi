@@ -1,8 +1,9 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useActionState, useEffect, useState } from 'react'
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -12,12 +13,20 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Flex, Text } from '@radix-ui/themes'
 import { Label } from '../ui/label'
-import { CircleUser, CircleUserRound  } from 'lucide-react';
+import { CircleUser, CircleUserRound } from 'lucide-react';
 import { emailValidateOnKeydown } from '@/utils/functions/email-validator'
 import Link from 'next/link'
+import { login, signup } from '@/utils/actions/form'
+import { toast } from 'sonner'
 export default function UserAccount() {
-    const [loginOpen, setLoginOpen] = useState(false)
-    
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [state, action, pending] = useActionState(login, { message: ' ' });
+    useEffect(() => {
+        if(state?.message === ' ') return;
+        else toast("Hello user!", {
+            description: state?.message
+        })
+    }, [state])
     return (
         <>
             <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
@@ -28,11 +37,12 @@ export default function UserAccount() {
                     <DialogHeader className='flex flex-col gap-1'>
                         <CircleUser size={'40'} className='mx-auto' />
                         <DialogTitle className='text-center text-xl opacity-50'>Log in</DialogTitle>
+                        <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <form action="" className='flex flex-col gap-5'>
+                    <form action={action} method='post' className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor="email" className='mb-3'>Email</Label>
-                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown}/>
+                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown} />
                         </Flex>
                         <Flex direction={'column'}>
                             <Flex justify={'between'} align={'center'} className='mb-2'>
@@ -43,7 +53,7 @@ export default function UserAccount() {
                             </Flex>
                             <Input type="password" name="password" id="password" className='w-full' placeholder='Enter your password...' />
                         </Flex>
-                        <Button className='mt-3 cursor-pointer'>Log in</Button>
+                        <Button className='mt-3 cursor-pointer' disabled={pending}>Log in</Button>
                         <Flex justify={'center'} className='text-sm gap-2' align={'center'}>
                             <Text>Don&apos;t have an account?</Text><CreateAccount />
                         </Flex>
@@ -55,6 +65,13 @@ export default function UserAccount() {
 }
 
 export function CreateAccount() {
+    const [state, action, pending] = useActionState(signup, { message: ' ' })
+    useEffect(() => {
+        if(state?.message === ' ') return;
+        else toast("Hello user!", {
+            description: state?.message
+        })
+    }, [state])
     return (
         <>
             <Dialog>
@@ -65,13 +82,14 @@ export function CreateAccount() {
                 </DialogTrigger>
                 <DialogContent onInteractOutside={e => e.preventDefault()}>
                     <DialogHeader className='flex flex-col gap-1'>
-                        <CircleUserRound  size={'40'} className='mx-auto' />
+                        <CircleUserRound size={'40'} className='mx-auto' />
                         <DialogTitle className='text-center text-xl opacity-50'>Sign up</DialogTitle>
+                        <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <form action="" className='flex flex-col gap-5'>
+                    <form action={action} method='post' className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor='email' className='mb-2'>Email</Label>
-                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown}/>
+                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown} />
                             <span className='text-sm opacity-50 mt-1'>We don&apos;t share your email with anyone</span>
                         </Flex>
 
@@ -84,7 +102,7 @@ export function CreateAccount() {
                             <Label htmlFor="confirmPassword" className='mb-2'>Confirm Password</Label>
                             <Input type="password" name="confirmPassword" id="confirmPassword" className='w-full' placeholder='Confirm your password...' />
                         </Flex>
-                        <Button className='mt-3 cursor-pointer'>Create an account</Button>
+                        <Button className='mt-3 cursor-pointer' disabled={pending}>Create an account</Button>
                     </form>
                 </DialogContent>
             </Dialog>
