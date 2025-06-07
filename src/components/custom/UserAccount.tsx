@@ -16,6 +16,7 @@ import { Label } from '../ui/label'
 import { CircleUser, CircleUserRound } from 'lucide-react';
 import { emailValidateOnKeydown } from '@/utils/functions/email-validator'
 import Link from 'next/link'
+import Form from "next/form"
 import { login, signup } from '@/utils/actions/form'
 import { toast } from 'sonner'
 export default function UserAccount() {
@@ -39,7 +40,7 @@ export default function UserAccount() {
                         <DialogTitle className='text-center text-xl opacity-50'>Log in</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <form action={action} method='post' className='flex flex-col gap-5'>
+                    <Form action={action} formMethod='post' className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor="email" className='mb-3'>Email</Label>
                             <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown} />
@@ -57,7 +58,7 @@ export default function UserAccount() {
                         <Flex justify={'center'} className='text-sm gap-2' align={'center'}>
                             <Text>Don&apos;t have an account?</Text><CreateAccount />
                         </Flex>
-                    </form>
+                    </Form>
                 </DialogContent>
             </Dialog>
         </>
@@ -86,7 +87,7 @@ export function CreateAccount() {
                         <DialogTitle className='text-center text-xl opacity-50'>Sign up</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <form action={action} method='post' className='flex flex-col gap-5'>
+                    <Form action={action} formMethod='post' className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor='email' className='mb-2'>Email</Label>
                             <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown} />
@@ -103,7 +104,7 @@ export function CreateAccount() {
                             <Input type="password" name="confirmPassword" id="confirmPassword" className='w-full' placeholder='Confirm your password...' />
                         </Flex>
                         <Button className='mt-3 cursor-pointer' disabled={pending}>Create an account</Button>
-                    </form>
+                    </Form>
                 </DialogContent>
             </Dialog>
         </>

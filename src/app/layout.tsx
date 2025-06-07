@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </Theme>
-        <Toaster position='top-center' />
+        <Toaster position='top-center'/>
       </body>
     </html>
   )
