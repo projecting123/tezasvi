@@ -5,8 +5,9 @@ import { resetPassword } from '@/utils/actions/form'
 import { Flex, Heading } from '@radix-ui/themes'
 import React, { useActionState } from 'react'
 
-export default function page() {
-  const [state, action, pending] = useActionState(resetPassword, '')
+export default function ResetPassword() {
+  const [state, action, pending] = useActionState(resetPassword, '');
+  console.log(state)
   return (
     <>
       <Flex justify={'center'} align={'center'} direction={'column'} minHeight={'70dvh'}>
