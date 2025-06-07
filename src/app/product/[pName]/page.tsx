@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatString } from "@/utils/format-product-name"
+import { formatString } from "@/utils/functions/format-product-name"
 
 export default async function page({ params }: { params: Promise<{ pName: string }> }) {
   const { pName } = await params

@@ -10,10 +10,14 @@ import {
 import { User2 } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { Flex } from '@radix-ui/themes'
+import { Flex, Text } from '@radix-ui/themes'
 import { Label } from '../ui/label'
+import { CircleUser, CircleUserRound  } from 'lucide-react';
+import { emailValidateOnKeydown } from '@/utils/functions/email-validator'
+import Link from 'next/link'
 export default function UserAccount() {
     const [loginOpen, setLoginOpen] = useState(false)
+    
     return (
         <>
             <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
@@ -21,24 +25,27 @@ export default function UserAccount() {
                     <User2 size={'20'} color='white' className='cursor-pointer' />
                 </DialogTrigger>
                 <DialogContent onInteractOutside={e => e.preventDefault()}>
-                    <DialogHeader>
-                        <DialogTitle>Log in</DialogTitle>
+                    <DialogHeader className='flex flex-col gap-1'>
+                        <CircleUser size={'40'} className='mx-auto' />
+                        <DialogTitle className='text-center text-xl opacity-50'>Log in</DialogTitle>
                     </DialogHeader>
                     <form action="" className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor="email" className='mb-3'>Email</Label>
-                            <Input type="email" name="email" id="email" className='w-full h-10' placeholder='Enter your email...' />
+                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown}/>
                         </Flex>
                         <Flex direction={'column'}>
-                            <Flex justify={'between'} align={'center'}>
+                            <Flex justify={'between'} align={'center'} className='mb-2'>
                                 <Label htmlFor="password">Password</Label>
-                                <Button variant={'link'} className='cursor-pointer text-blue-400 underline'>Reset password</Button>
+                                <Text asChild className='underline sm:no-underline text-sm hover:underline'>
+                                    <Link href='/reset-password' className='cursor-pointer text-blue-400 hover:text-blue-500' onNavigate={() => setLoginOpen(false)}>Reset Password</Link>
+                                </Text>
                             </Flex>
-                            <Input type="password" name="password" id="password" className='w-full h-10' placeholder='Enter your password...' />
+                            <Input type="password" name="password" id="password" className='w-full' placeholder='Enter your password...' />
                         </Flex>
                         <Button className='mt-3 cursor-pointer'>Log in</Button>
-                        <Flex justify={'center'} className='text-sm' align={'center'}>
-                            Don&apos;t have an account? <CreateAccount />
+                        <Flex justify={'center'} className='text-sm gap-2' align={'center'}>
+                            <Text>Don&apos;t have an account?</Text><CreateAccount />
                         </Flex>
                     </form>
                 </DialogContent>
@@ -52,27 +59,30 @@ export function CreateAccount() {
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant={'link'} className='cursor-pointer text-blue-400 underline'>Sign up</Button>
+                    <Text asChild className='underline sm:no-underline text-sm hover:underline'>
+                        <button className='cursor-pointer text-blue-400 hover:text-blue-500'>Sign up</button>
+                    </Text>
                 </DialogTrigger>
                 <DialogContent onInteractOutside={e => e.preventDefault()}>
-                    <DialogHeader>
-                        <DialogTitle>Create an account</DialogTitle>
+                    <DialogHeader className='flex flex-col gap-1'>
+                        <CircleUserRound  size={'40'} className='mx-auto' />
+                        <DialogTitle className='text-center text-xl opacity-50'>Sign up</DialogTitle>
                     </DialogHeader>
                     <form action="" className='flex flex-col gap-5'>
                         <Flex direction={'column'}>
                             <Label htmlFor='email' className='mb-2'>Email</Label>
-                            <Input type="email" name="email" id="email" className='w-full h-10' placeholder='Enter your email...' />
+                            <Input type="email" name="email" id="email" className='w-full' placeholder='Enter your email...' onKeyDown={emailValidateOnKeydown}/>
                             <span className='text-sm opacity-50 mt-1'>We don&apos;t share your email with anyone</span>
                         </Flex>
 
                         <Flex direction={'column'}>
                             <Label htmlFor="password" className='mb-2'>Password</Label>
-                            <Input type="password" name="password" id="password" className='w-full h-10' placeholder='Enter your password...' />
+                            <Input type="password" name="password" id="password" className='w-full' placeholder='Enter your password...' />
                         </Flex>
 
                         <Flex direction={'column'}>
                             <Label htmlFor="confirmPassword" className='mb-2'>Confirm Password</Label>
-                            <Input type="password" name="confirmPassword" id="confirmPassword" className='w-full h-10' placeholder='Confirm your password...' />
+                            <Input type="password" name="confirmPassword" id="confirmPassword" className='w-full' placeholder='Confirm your password...' />
                         </Flex>
                         <Button className='mt-3 cursor-pointer'>Create an account</Button>
                     </form>
