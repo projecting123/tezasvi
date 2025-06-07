@@ -10,7 +10,7 @@ export const resetPassword = async (state: any, formData: FormData) => {
     try {
         const validatedEmail = resetPasswordSchema.parse({ email })
         const { error } = await supabase.auth.resetPasswordForEmail(validatedEmail.email, {
-            redirectTo: 'http://localhost:3000/reset-password'
+            redirectTo: 'https://tezasvi.vercel.app/reset-password'
         })
         if(error) throw new Error(error.message);
         return { message: 'Check your email for a reset link' }
@@ -29,9 +29,12 @@ export const signup = async (state: any, formData: FormData) => {
     try {
         if(password !== confirmPassword) throw new Error('Passwords do not match');
         const validatedSignup = signupSchema.parse({ email, password, confirmPassword })
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: validatedSignup.email,
             password: validatedSignup.password,
+            options: {
+                emailRedirectTo: 'https://tezasvi.vercel.app',
+            },
         })
         if(error) throw new Error(error.message);
         return { message: 'Check your email for a verification link' }
