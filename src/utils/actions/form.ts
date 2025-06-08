@@ -13,10 +13,10 @@ export const resetPassword = async (state: any, formData: FormData) => {
             redirectTo: 'https://tezasvi.vercel.app/reset-password'
         })
         if(error) throw new Error(error.message);
-        return { message: 'Check your email for a reset link' }
+        return { message: 'Check your email for a reset link', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message }
+            return { message: error.issues[0].message, statusText: 'error' }
         }
     }
 }
@@ -33,14 +33,14 @@ export const signup = async (state: any, formData: FormData) => {
             email: validatedSignup.email,
             password: validatedSignup.password,
             options: {
-                emailRedirectTo: 'https://tezasvi.vercel.app',
+                emailRedirectTo: 'https://tezasvi.vercel.app/welcome',
             },
         })
         if(error) throw new Error(error.message);
-        return { message: 'Check your email for a verification link' }
+        return { message: 'Check your email for a verification link', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message }
+            return { message: error.issues[0].message, statusText: 'error' }
         }
     }
 }
@@ -56,10 +56,10 @@ export const login = async (state: any, formData: FormData) => {
             password: validatedLogin.password,
         })
         if(error) throw new Error(error.message);
-        return { message: 'Logged in successfully' }
+        return { message: 'Logged in successfully', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message }
+            return { message: error.issues[0].message, statusText: 'error' }
         }
     }
 }

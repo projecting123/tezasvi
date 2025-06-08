@@ -7,12 +7,17 @@ import React, { useActionState, useEffect } from 'react'
 import { toast } from 'sonner'
 import Form from "next/form"
 export default function ResetPassword() {
-  const [state, action, pending] = useActionState(resetPassword, { message: ' ' });
+  const [state, action, pending] = useActionState(resetPassword, { message: ' ', statusText: ' ' });
   useEffect(() => {
-    if(state?.message === ' ') return;
-    else toast("Hello user!", {
-      description: state?.message
-    })
+    if(state?.message === ' ' || state?.statusText === ' ') return;
+    else {
+      if(state?.statusText === 'success') toast.success("Success", {
+        description: state?.message
+      })
+      else toast.error("Error", {
+        description: state?.message
+      })
+    }
   }, [state])
   return (
     <>

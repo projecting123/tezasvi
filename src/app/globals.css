@@ -2,7 +2,14 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
+@theme{
+  --breakpoint-*: initial;
+  --breakpoint-xs: 520px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1640px;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
