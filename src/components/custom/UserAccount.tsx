@@ -32,7 +32,7 @@ export default function UserAccount() {
                 description: state?.message
             })
         }
-    }, [state])
+    }, [state?.statusText])
     return (
         <>
             <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
