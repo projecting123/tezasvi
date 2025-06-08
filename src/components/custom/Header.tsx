@@ -4,13 +4,15 @@ import { Box, Flex, Text } from '@radix-ui/themes'
 import Image from 'next/image'
 import React from 'react'
 import { ShoppingCart } from 'lucide-react'
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '../ui/navigation-menu'
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
-import CategorySlide from './CategorySlide'
-import { Input } from '../ui/input'
-import { MobileProductSearch } from './MobileProductSearch'
-import UserAccount from './UserAccount'
-export default function Header() {
+import CategorySlide from '@/components/custom/CategorySlide'
+import { Input } from '@/components/ui/input'
+import { MobileProductSearch } from '@/components/custom/MobileProductSearch'
+import UserAccount from '@/components/custom/UserAccount'
+import { User } from '@supabase/supabase-js'
+import AuthUserAvatarWithDropdown from './AuthUserAvatarWithDropdown'
+export default function Header({ user }: {user: User | null}) {
   return (
     <>
       <header className='w-full sticky top-0 py-4 px-6 bg-[#410F0F] shadow-md z-100 flex justify-between items-center'>
@@ -32,7 +34,7 @@ export default function Header() {
             <Input type='search' name='search' autoComplete='off' placeholder='Search for products...' aria-label='Search for products...' className='w-80 h-8 text-white'/>
           </Box>
           <ShoppingCart size={'20'} color='white' className='cursor-pointer' />
-          <UserAccount/>
+          {user ? <AuthUserAvatarWithDropdown user={user}/> : <UserAccount/>}
         </Flex>
       </header>
       <CategorySlide/>

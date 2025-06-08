@@ -23,6 +23,7 @@ export const resetPassword = async (state: any, formData: FormData) => {
 
 export const signup = async (state: any, formData: FormData) => {
     const supabase = await createClient()
+    const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const confirmPassword = formData.get('confirmPassword') as string;
@@ -33,7 +34,10 @@ export const signup = async (state: any, formData: FormData) => {
             email: validatedSignup.email,
             password: validatedSignup.password,
             options: {
-                emailRedirectTo: 'https://tezasvi.vercel.app/welcome',
+                emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL!}/welcome`,
+                data: {
+                    name: name
+                }
             },
         })
         if(error) throw new Error(error.message);
@@ -64,3 +68,11 @@ export const login = async (state: any, formData: FormData) => {
     }
 }
 
+export const logout = async () => {
+    const supabase = await createClient()
+    const { error } = await supabase.auth.signOut()
+    if(error) {
+        return { message: 'Some error occurred', statusText: 'error'}
+    }
+    else return { message: 'Logged out successfully', statusText: 'success' }
+}

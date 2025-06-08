@@ -9,10 +9,10 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { User2 } from 'lucide-react'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { Flex, Text } from '@radix-ui/themes'
-import { Label } from '../ui/label'
+import { Label } from '@/components/ui/label'
 import { CircleUser, CircleUserRound } from 'lucide-react';
 import { emailValidateOnKeydown, nameValidateOnKeydown } from '@/utils/functions/form-live-validator'
 import Link from 'next/link'

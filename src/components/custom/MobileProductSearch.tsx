@@ -1,8 +1,8 @@
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Flex } from "@radix-ui/themes";
-import { DialogHeader } from "../ui/dialog";
-import { Input } from "../ui/input";
+import { DialogHeader } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 export function MobileProductSearch() {
   return (
