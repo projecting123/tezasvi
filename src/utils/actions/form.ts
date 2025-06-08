@@ -70,9 +70,11 @@ export const login = async (state: any, formData: FormData) => {
 
 export const logout = async () => {
     const supabase = await createClient()
-    const { error } = await supabase.auth.signOut()
-    if(error) {
-        return { message: 'Some error occurred', statusText: 'error'}
+    try {
+        const { error } = await supabase.auth.signOut()
+        if(error) throw new Error(error.message);
+        else return { message: 'Logged out successfully', statusText: 'success' }
+    } catch (error: any) {
+        return { message: error.message, statusText: 'success' }
     }
-    else return { message: 'Logged out successfully', statusText: 'success' }
 }

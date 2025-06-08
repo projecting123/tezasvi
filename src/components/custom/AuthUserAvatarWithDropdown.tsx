@@ -13,15 +13,16 @@ import { UserRound, ShoppingBasket, Gift, MapPin, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { logout } from '@/utils/actions/form';
 import { Avatar, AvatarFallback } from '../ui/avatar';
-import { toast } from 'sonner';
 import Form from 'next/form';
+import { toast } from 'sonner';
 
 export default function AuthUserAvatarWithDropdown({ user }: { user: User | null }) {
     const [state, action] = useActionState(logout, { message: ' ', statusText: ' '});
     const avatar = (user?.user_metadata['name'] as string).at(0)?.toUpperCase();
     useEffect(() => {
-        if(state?.statusText === 'success') toast.success(state.message, { position: 'bottom-center' })
-        else toast.error(state.message, { position: 'bottom-center' })
+        if(state?.statusText == 'error') toast.error("Error", {
+            description: state?.message
+        })
     }, [state])
     return (
         <DropdownMenu>

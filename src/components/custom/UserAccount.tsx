@@ -23,16 +23,10 @@ export default function UserAccount() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [state, action, pending] = useActionState(login, { message: ' ', statusText: ' ' });
     useEffect(() => {
-        if (state?.message === ' ' || state?.statusText === ' ') return;
-        else {
-            if (state?.statusText === 'success') toast.success("Success", {
-                description: state?.message
-            })
-            else toast.error("Error", {
-                description: state?.message
-            })
-        }
-    }, [state?.statusText])
+        if(state?.statusText == 'error') toast.error("Error", {
+            description: state?.message
+        })
+    }, [state])
     return (
         <>
             <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
