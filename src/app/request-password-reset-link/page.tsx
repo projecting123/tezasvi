@@ -29,7 +29,7 @@ export default function ResetPassword() {
         <Flex justify={'center'} align={'start'} direction={'column'} gap={'3'} flexGrow={'1'}>
           <Card>
             <CardHeader className='flex flex-col gap-0 items-center'>
-              <CardTitle className='text-center text-2xl opacity-50 select-none'>Reset Password</CardTitle>
+              <CardTitle className='text-center text-2xl select-none'>Reset Password</CardTitle>
               <CardDescription className='text-center opacity-45 select-none'>Enter your email to reset your password</CardDescription>
             </CardHeader>
             <CardContent>

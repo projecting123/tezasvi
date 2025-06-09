@@ -32,7 +32,7 @@ export default function page() {
                 <Form action={action} formMethod='post'>
                     <Card>
                         <CardHeader className='flex flex-col gap-0 items-center'>
-                            <CardTitle className='text-center text-2xl opacity-50 select-none'>Update Password</CardTitle>
+                            <CardTitle className='text-center text-2xl select-none'>Update Password</CardTitle>
                             <CardDescription className='text-center opacity-45 select-none'>Keep it unique and secure</CardDescription>
                         </CardHeader>
                         <CardContent>

@@ -40,7 +40,7 @@ export default function UserAccount() {
                         <DialogTitle className='text-center text-xl opacity-50'>Log in</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <Form action={action} formMethod='post' className='flex flex-col gap-2'>
+                    <Form action={action} formMethod='post' className='flex flex-col gap-3'>
                         <Flex direction={'column'}>
                             <Label htmlFor="email" className='mb-3'>Email</Label>
                             <Flex align={'center'} position={'relative'}>
