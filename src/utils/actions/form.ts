@@ -10,7 +10,7 @@ export const resetPassword = async (state: any, formData: FormData) => {
     try {
         const validatedEmail = resetPasswordSchema.parse({ email })
         const { error } = await supabase.auth.resetPasswordForEmail(validatedEmail.email, {
-            redirectTo: 'https://tezasvi.vercel.app/reset-password'
+            redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL!}/account/update-password`
         })
         if(error) throw new Error(error.message);
         return { message: 'Check your email for a reset link', statusText: 'success' }
@@ -76,5 +76,26 @@ export const logout = async () => {
         else return { message: 'Logged out successfully', statusText: 'success' }
     } catch (error: any) {
         return { message: error.message, statusText: 'success' }
+    }
+}
+
+export const updatePassword = async (state: any, formData: FormData) => {
+    const supabase = await createClient()
+    const password = formData.get('password') as string;
+    const confirmPassword = formData.get('confirmPassword') as string;
+    try {
+        if(password !== confirmPassword) throw new Error('Passwords do not match');
+        const { error } = await supabase.auth.updateUser({
+            password: password
+        })
+        if(error) throw new Error(error.message);
+        return { message: 'Password updated successfully', statusText: 'success' }
+    } catch (error) {
+        if(error instanceof ZodError) {
+            return { message: error.issues[0].message, statusText: 'error' }
+        }
+        else if(error instanceof Error) {
+            return { message: error.message, statusText: 'error' }
+        }
     }
 }

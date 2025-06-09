@@ -31,7 +31,7 @@ export default function AuthUserAvatarWithDropdown({ user }: { user: User | null
                     <AvatarFallback className='cursor-pointer'>{avatar}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className='p-2'>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
