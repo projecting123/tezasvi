@@ -44,7 +44,10 @@ export const signup = async (state: any, formData: FormData) => {
         return { message: 'Check your email for a verification link', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message, statusText: 'error' }
+            return { message: error.issues[0].message, statusText: 'error', name, email }
+        }
+        else if(error instanceof Error) {
+            return { message: error.message, statusText: 'error', name, email }
         }
     }
 }
@@ -59,11 +62,14 @@ export const login = async (state: any, formData: FormData) => {
             email: validatedLogin.email,
             password: validatedLogin.password,
         })
-        if(error) throw new Error(error.message);
+        if(error) throw new Error("Some error occurred. Try again later.");
         return { message: 'Logged in successfully', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message, statusText: 'error' }
+            return { message: error.issues[0].message, statusText: 'error', email }
+        }
+        else if(error instanceof Error) {
+            return { message: error.message, statusText: 'error', email }
         }
     }
 }
@@ -72,7 +78,7 @@ export const logout = async () => {
     const supabase = await createClient()
     try {
         const { error } = await supabase.auth.signOut()
-        if(error) throw new Error(error.message);
+        if(error) throw new Error("Some error occurred. Try again later.");
         else return { message: 'Logged out successfully', statusText: 'success' }
     } catch (error: any) {
         return { message: error.message, statusText: 'success' }

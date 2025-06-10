@@ -21,8 +21,9 @@ import { login, signup } from '@/utils/actions/form'
 import { toast } from 'sonner'
 import { Separator } from '../ui/separator'
 export default function UserAccount() {
+    const formRef = React.useRef<HTMLFormElement | null>(null);
     const [loginOpen, setLoginOpen] = useState(false);
-    const [state, action, pending] = useActionState(login, { message: ' ', statusText: ' ' });
+    const [state, action, pending] = useActionState(login, { message: ' ', statusText: ' ', email: '' });
     useEffect(() => {
         if (state?.statusText == 'error') toast.error("Error", {
             description: state?.message
@@ -40,13 +41,13 @@ export default function UserAccount() {
                         <DialogTitle className='text-center text-xl opacity-50'>Log in</DialogTitle>
                         <DialogDescription></DialogDescription>
                     </DialogHeader>
-                    <Form action={action} formMethod='post' className='flex flex-col gap-3'>
+                    <Form action={action} formMethod='post' className='flex flex-col gap-3' ref={formRef}>
                         <Flex direction={'column'}>
                             <Label htmlFor="email" className='mb-3'>Email</Label>
                             <Flex align={'center'} position={'relative'}>
                                 <Mail size={'20'} className='absolute opacity-50 top-1/2 left-3 -translate-y-1/2' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
+                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
                             </Flex>
                         </Flex>
                         <Flex direction={'column'}>
@@ -77,10 +78,8 @@ export default function UserAccount() {
 }
 
 
-
-// Create Account
 export function CreateAccount() {
-    const [state, action, pending] = useActionState(signup, { message: ' ', statusText: ' ' })
+    const [state, action, pending] = useActionState(signup, { message: ' ', statusText: ' ', name: '', email: '' })
     useEffect(() => {
         if (state?.message === ' ' || state?.statusText === ' ') return;
         else {
@@ -112,7 +111,7 @@ export function CreateAccount() {
                             <div className='relative'>
                                 <User size={'20'} className='absolute top-1/2 left-3 -translate-y-1/2 opacity-50' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input type="text" className='pl-12 pb-2' name="name" id="name" placeholder='Enter your name' onKeyDown={nameValidateOnKeydown} />
+                                <Input defaultValue={state?.name} type="text" className='pl-12 pb-2' name="name" id="name" placeholder='Enter your name' onKeyDown={nameValidateOnKeydown} />
                             </div>
                         </Flex>
                         <Flex direction={'column'}>
@@ -120,7 +119,7 @@ export function CreateAccount() {
                             <div className='relative'>
                                 <Mail size={'20'} className='absolute opacity-50 top-1/2 left-3 -translate-y-1/2' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
+                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
                             </div>
                             <span className='text-sm opacity-50 mt-1'>We don&apos;t share your email with anyone</span>
                         </Flex>

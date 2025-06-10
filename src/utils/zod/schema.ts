@@ -1,9 +1,7 @@
 import { z } from 'zod/v4';
 
 export const signupSchema = z.object({
-    email: z.email({ error: 'Email is invalid' })
-    .endsWith('@gmail.com', { error: 'Email must be a gmail account' })
-    .min(1, { error: 'Email is required' }),
+    email: z.string().min(1, { error: 'Email is required' }).endsWith('@gmail.com', { error: 'Email must be a gmail account' }),
 
     password: z.string()
     .min(1, { error: 'Password is required' })
@@ -17,7 +15,7 @@ export const signupSchema = z.object({
 })
 
 export const loginSchema = z.object({
-    email: z.email({ error: 'Email is invalid' })
+    email: z.email()
     .endsWith('@gmail.com', { error: 'Email must be a gmail account' }),
 
     password: z.string()
