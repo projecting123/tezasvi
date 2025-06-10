@@ -20,7 +20,7 @@ const { data: { user } } = await supabase.auth.getUser();
           </main>
           <Footer />
         </Theme>
-        <Toaster position='top-center'/>
+        <Toaster position='top-center' richColors/>
       </body>
     </html>
   )
