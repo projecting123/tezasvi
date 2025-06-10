@@ -43,7 +43,7 @@ export const signup = async (state: any, formData: FormData) => {
                 }
             },
         })
-        if(error) throw new Error(error.message);
+        if(error) throw new Error("Oops!! Please try again");
         return { message: 'Check your email for a verification link', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
@@ -65,7 +65,7 @@ export const login = async (state: any, formData: FormData) => {
             email: validatedLogin.email,
             password: validatedLogin.password,
         })
-        if(error) throw new Error("Some error occurred. Try again later.");
+        if(error) throw new Error("Oops!! Please try again");
         return { message: 'Logged in successfully', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
@@ -81,7 +81,7 @@ export const logout = async () => {
     const supabase = await createClient()
     try {
         const { error } = await supabase.auth.signOut()
-        if(error) throw new Error("Some error occurred. Try again later.");
+        if(error) throw new Error("Oops!! Please try again");
         else return { message: 'Logged out successfully', statusText: 'success' }
     } catch (error: any) {
         return { message: error.message, statusText: 'success' }
@@ -97,7 +97,7 @@ export const updatePassword = async (state: any, formData: FormData) => {
         const { error } = await supabase.auth.updateUser({
             password: password
         })
-        if(error) throw new Error(error.message);
+        if(error) throw new Error("Oops!! Please try again");
         return { message: 'Password updated successfully', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
