@@ -16,7 +16,10 @@ export const resetPassword = async (state: any, formData: FormData) => {
         return { message: 'Check your email for a reset link', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
-            return { message: error.issues[0].message, statusText: 'error' }
+            return { message: error.issues[0].message, statusText: 'error', email }
+        }
+        else if(error instanceof Error) {
+            return { message: error.message, statusText: 'error', email }
         }
     }
 }
@@ -29,14 +32,14 @@ export const signup = async (state: any, formData: FormData) => {
     const confirmPassword = formData.get('confirmPassword') as string;
     try {
         if(password !== confirmPassword) throw new Error('Passwords do not match');
-        const validatedSignup = signupSchema.parse({ email, password, confirmPassword })
+        const validatedSignup = signupSchema.parse({ name, email, password, confirmPassword })
         const { data, error } = await supabase.auth.signUp({
             email: validatedSignup.email,
             password: validatedSignup.password,
             options: {
                 emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL!}/welcome`,
                 data: {
-                    name: name
+                    name: validatedSignup.name
                 }
             },
         })

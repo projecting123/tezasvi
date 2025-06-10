@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Flex, Text } from '@radix-ui/themes'
 import { Label } from '@/components/ui/label'
 import { CircleUser, CircleUserRound } from 'lucide-react';
-import { emailValidateOnKeydown, nameValidateOnKeydown } from '@/utils/functions/form-live-validator'
+import { emailInputHandler, emailValidateOnKeydown, nameValidateOnKeydown } from '@/utils/functions/form-live-validator'
 import Link from 'next/link'
 import Form from "next/form"
 import { login, signup } from '@/utils/actions/form'
@@ -23,7 +23,7 @@ import { Separator } from '../ui/separator'
 export default function UserAccount() {
     const formRef = React.useRef<HTMLFormElement | null>(null);
     const [loginOpen, setLoginOpen] = useState(false);
-    const [state, action, pending] = useActionState(login, { message: ' ', statusText: ' ', email: '' });
+    const [state, action, pending] = useActionState(login, { message: '', statusText: '', email: '' });
     useEffect(() => {
         if (state?.statusText == 'error') toast.error("Error", {
             description: state?.message
@@ -47,7 +47,7 @@ export default function UserAccount() {
                             <Flex align={'center'} position={'relative'}>
                                 <Mail size={'20'} className='absolute opacity-50 top-1/2 left-3 -translate-y-1/2' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
+                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} onInput={emailInputHandler} />
                             </Flex>
                         </Flex>
                         <Flex direction={'column'}>
@@ -79,9 +79,9 @@ export default function UserAccount() {
 
 
 export function CreateAccount() {
-    const [state, action, pending] = useActionState(signup, { message: ' ', statusText: ' ', name: '', email: '' })
+    const [state, action, pending] = useActionState(signup, { message: '', statusText: '', name: '', email: '' })
     useEffect(() => {
-        if (state?.message === ' ' || state?.statusText === ' ') return;
+        if (state?.message === '' || state?.statusText === '') return;
         else {
             if (state?.statusText === 'success') toast.success("Success", {
                 description: state?.message
@@ -111,7 +111,7 @@ export function CreateAccount() {
                             <div className='relative'>
                                 <User size={'20'} className='absolute top-1/2 left-3 -translate-y-1/2 opacity-50' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input defaultValue={state?.name} type="text" className='pl-12 pb-2' name="name" id="name" placeholder='Enter your name' onKeyDown={nameValidateOnKeydown} />
+                                <Input defaultValue={state?.name} type="text" className='pl-12 pb-2' name="name" id="name" placeholder='Enter your name' onKeyDown={nameValidateOnKeydown}/>
                             </div>
                         </Flex>
                         <Flex direction={'column'}>
@@ -119,7 +119,7 @@ export function CreateAccount() {
                             <div className='relative'>
                                 <Mail size={'20'} className='absolute opacity-50 top-1/2 left-3 -translate-y-1/2' />
                                 <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2'/>
-                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
+                                <Input defaultValue={state?.email} className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} onInput={emailInputHandler} />
                             </div>
                             <span className='text-sm opacity-50 mt-1'>We don&apos;t share your email with anyone</span>
                         </Flex>

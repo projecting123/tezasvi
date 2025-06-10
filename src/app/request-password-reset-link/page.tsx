@@ -8,12 +8,12 @@ import { toast } from 'sonner'
 import Form from "next/form"
 import { Mail } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-import { emailValidateOnKeydown } from '@/utils/functions/form-live-validator'
+import { emailInputHandler, emailValidateOnKeydown } from '@/utils/functions/form-live-validator'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 export default function ResetPassword() {
-  const [state, action, pending] = useActionState(resetPassword, { message: ' ', statusText: ' ' });
+  const [state, action, pending] = useActionState(resetPassword, { message: '', statusText: '', email: '' });
   useEffect(() => {
-    if (state?.message === ' ' || state?.statusText === ' ') return;
+    if (state?.message === '' || state?.statusText === '') return;
     else {
       if (state?.statusText === 'success') toast.success("Success", {
         description: state?.message
@@ -38,7 +38,7 @@ export default function ResetPassword() {
                   <div className='relative'>
                     <Mail size={'20'} className='absolute opacity-50 top-1/2 left-3 -translate-y-1/2' />
                     <Separator orientation='vertical' className='absolute left-10 top-1/2 h-5 -translate-y-1/2' />
-                    <Input className='pl-12 pb-2' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} />
+                    <Input defaultValue={state?.email} className='pl-12 pb-1' type="email" name="email" id="email" placeholder='Enter your email' onKeyDown={emailValidateOnKeydown} onInput={emailInputHandler} />
                   </div>
                   <Button disabled={pending} className='cursor-pointer self-center'>
                     {pending && <span className='loading loading-spinner'></span>}
