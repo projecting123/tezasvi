@@ -1,7 +1,7 @@
 "use server"
 
 import { createClient } from "@/utils/supabase/server";
-import { loginSchema, resetPasswordSchema, signupSchema } from "../zod/schema";
+import { loginSchema, resetPasswordSchema, signupSchema, updatePasswordSchema } from "../zod/schema";
 import { ZodError } from "zod/v4";
 
 export const resetPassword = async (state: any, formData: FormData) => {
@@ -65,7 +65,7 @@ export const login = async (state: any, formData: FormData) => {
             email: validatedLogin.email,
             password: validatedLogin.password,
         })
-        if(error) throw new Error("Oops!! Please try again");
+        if(error) throw new Error(error.message);
         return { message: 'Logged in successfully', statusText: 'success' }
     } catch (error) {
         if(error instanceof ZodError) {
@@ -94,8 +94,9 @@ export const updatePassword = async (state: any, formData: FormData) => {
     const confirmPassword = formData.get('confirmPassword') as string;
     try {
         if(password !== confirmPassword) throw new Error('Passwords do not match');
+        const validatedUpdatePassword = updatePasswordSchema.parse({ password, confirmPassword })
         const { error } = await supabase.auth.updateUser({
-            password: password
+            password: validatedUpdatePassword.password,
         })
         if(error) throw new Error("Oops!! Please try again");
         return { message: 'Password updated successfully', statusText: 'success' }
